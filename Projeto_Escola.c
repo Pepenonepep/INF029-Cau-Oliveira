@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct{
     int matricula;
@@ -56,25 +57,26 @@ if(opcao==5){
  return opcao;
 }
  int Primeiroponto(int opcao){
- switch(opcao){
-    case 1:
-    ultimoCaso=1;
-    printf("\nVocê deseja cadastrar:\n\n--Professores--\t\tdigite [1]\n--Alunos--\t\tdigite [2]\n--Disciplinas--\t\tdigite [3]\n--Voltar--\t\tdigite [4]\n--OU--\n--Sair--\t\tdigite [5]\n");
-    scanf("%d",&opcao);if(opcao!=5){ultimoCaso=opcao;}
-    while(opcao==4){
-        opcao=opcaoValida(opcao,ultimoCaso);
-    }
-    return opcao; 
-    case 2:
-    break;
-    case 3:
-    break;
-    case 4:
-    break;
-    case 5:
-    printf("Obrigado por acessar! :)");
-    break;
- } 
+    int ultimoCaso=1;
+    switch(opcao){
+        case 1:
+            printf("\nVocê deseja cadastrar:\n\n--Professores--\t\tdigite [1]\n--Alunos--\t\tdigite [2]\n--Disciplinas--\t\tdigite [3]\n--Voltar--\t\tdigite [4]\n--OU--\n--Sair--\t\tdigite [5]\n");
+            scanf("%d",&opcao);if(opcao!=5){ultimoCaso=opcao;}
+            while(opcao==4){
+                opcao=opcaoValida(opcao,ultimoCaso);
+            }
+            return opcao; 
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            printf("Obrigado por acessar! :)");
+            break;
+    } 
+    return opcao;
 }
 
 
@@ -93,17 +95,20 @@ if(opcao!=1 && opcao!=2 && opcao!=3 && opcao!=4 && opcao!=5){
     opcao = opcaoValida(opcao,ultimoCaso);
 }
     opcao=Primeiroponto(opcao);
-switch(opcao){
-    case 1:
+    
     Professores * prof;
-    prof = (Professores*) malloc(sizeof(prof));
-     char rascunho_tam[1024];
-     printf("Digite o nome do professor: \t");scanf("%.1023s",rascunho);
-     int tamanho_real=strlen(rascunho)+1;
-     prof->nome=(char*)malloc(tamanho_real*sizeof(char));
-     strcpy(prof->nome,rascunho);
-     
-    break;
-}
- return 0;
+    char rascunho_tam[1024];
+    
+    switch(opcao){
+        case 1:
+            prof = (Professores*) malloc(sizeof(Professores));
+            printf("Digite o nome do professor: \t");
+            scanf("%1023s", rascunho_tam);
+            int tamanho_real = strlen(rascunho_tam) + 1;
+            prof->nome = (char*)malloc(tamanho_real * sizeof(char));
+            strcpy(prof->nome, rascunho_tam);
+            
+    }
+    
+    return 0;
 }
