@@ -2,9 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define tam_professores 3
+
+typedef struct { 
+        int dia;
+        int mes;
+        int ano;
+    }Data;
+
 typedef struct{
     int matricula;
-    char * data;
+    Data data;
     char * nome;
     char * sexo;
     int cpf;
@@ -14,7 +22,7 @@ typedef struct{
 
 typedef struct{
     int matricula;
-    char * data;
+    Data data;
     char * nome;
     char * sexo;
     int cpf;
@@ -90,6 +98,7 @@ int main(){
  printf("Digite [5] para sair\n");
  int opcao;
  int ultimoCaso=0;
+ Professores listaProfessores[tam_professores];
  scanf("%d",&opcao);
 if(opcao!=1 && opcao!=2 && opcao!=3 && opcao!=4 && opcao!=5){
     opcao = opcaoValida(opcao,ultimoCaso);
@@ -98,15 +107,21 @@ if(opcao!=1 && opcao!=2 && opcao!=3 && opcao!=4 && opcao!=5){
     
     Professores * prof;
     char rascunho_tam[1024];
-    
+    int id=0;
     switch(opcao){
         case 1:
+        int validade =0;
             prof = (Professores*) malloc(sizeof(Professores));
             printf("Digite o nome do professor: \t");
+            id+=1;
             scanf("%1023s", rascunho_tam);
             int tamanho_real = strlen(rascunho_tam) + 1;
             prof->nome = (char*)malloc(tamanho_real * sizeof(char));
             strcpy(prof->nome, rascunho_tam);
+            do{
+            printf("Digite a data de nascimento no formato (DIA / MÊS / ANO): ");
+            scanf("%d",&listaProfessores[id].data.dia);if(listaProfessores[id].data.dia <1 || listaProfessores[id].data.dia >31){printf("Dia fora do padrão, tente novamente");}else{validade=1;}
+            }while(validade==0);
             
     }
     
