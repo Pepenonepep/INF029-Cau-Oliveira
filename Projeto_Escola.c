@@ -106,25 +106,80 @@ if(opcao!=1 && opcao!=2 && opcao!=3 && opcao!=4 && opcao!=5){
     opcao=Primeiroponto(opcao);
     
     Professores * prof;
+    Alunos * alun;
     char rascunho_tam[1024];
-    int id=0;
+    int idp=0;
+    int ida=0;
     switch(opcao){
         case 1:
         int validade =0;
             prof = (Professores*) malloc(sizeof(Professores));
-            printf("Digite o nome do professor: \t");
-            id+=1;
+            printf("Digite o nome do professor: ");
+            idp+=1;
             scanf("%1023s", rascunho_tam);
             int tamanho_real = strlen(rascunho_tam) + 1;
             prof->nome = (char*)malloc(tamanho_real * sizeof(char));
             strcpy(prof->nome, rascunho_tam);
-             printf("Digite a data de nascimento no formato (DIA / MÊS / ANO), nessa ordem e sem as barras '/': ");
+             printf("Digite a data de nascimento no formato (DIA): ");
             do{
-            scanf("%d",&listaProfessores[id].data.dia);if(listaProfessores[id].data.dia <1 || listaProfessores[id].data.dia >31){printf("Dia fora do padrão, tente novamente\n");}
-            
+            scanf("%d",&listaProfessores[idp].data.dia);
+            if(listaProfessores[idp].data.dia <1 || listaProfessores[idp].data.dia >31){
+                printf("Dia fora do padrão, tente novamente\n");
+            }
+            else{
+                printf("Digite a data de nascimento no formato (MES): ");
+                scanf("%d",&listaProfessores[idp].data.mes);
+                if(listaProfessores[idp].data.mes<1||listaProfessores[idp].data.dia>12){
+                    printf("Mês fora do padrão, tente novamente\n");
+                }
+                else{
+                    printf("Digite a data de nascimento no formato (ANO): ");
+                    scanf("%d",&listaProfessores[idp].data.ano);
+                    if(listaProfessores[idp].data.ano<1900 || listaProfessores[idp].data.ano>2026){
+                         printf("Ano fora do padrão, tente novamente\n");
+                    }
+                    else{
+                      validade++;  
+                    }
+                }
+            }
             }while(validade==0);
+            break;
 
-
+            case 2: 
+            validade =0;
+            alun = (Alunos*) malloc(sizeof(Alunos));
+            printf("Digite o nome do aluno: ");
+            ida+=1;
+            scanf("%1023s", rascunho_tam);
+            tamanho_real = strlen(rascunho_tam) + 1;
+            alun->nome = (char*)malloc(tamanho_real * sizeof(char));
+            strcpy(alun->nome, rascunho_tam);
+             printf("Digite a data de nascimento no formato (DIA): ");
+            do{
+            scanf("%d",&listaProfessores[ida].data.dia);
+            if(listaProfessores[ida].data.dia <1 || listaProfessores[ida].data.dia >31){
+                printf("Dia fora do padrão, tente novamente\n");
+            }
+            else{
+                printf("Digite a data de nascimento no formato (MES): ");
+                scanf("%d",&listaProfessores[ida].data.mes);
+                if(listaProfessores[ida].data.mes<1||listaProfessores[ida].data.dia>12){
+                    printf("Mês fora do padrão, tente novamente\n");
+                }
+                else{
+                    printf("Digite a data de nascimento no formato (ANO): ");
+                    scanf("%d",&listaProfessores[ida].data.ano);
+                    if(listaProfessores[ida].data.ano<1900 || listaProfessores[ida].data.ano>2026){
+                         printf("Ano fora do padrão, tente novamente\n");
+                    }
+                    else{
+                      validade++;  
+                    }
+                }
+            }
+            }while(validade==0);
+            break;
             
     }
     
