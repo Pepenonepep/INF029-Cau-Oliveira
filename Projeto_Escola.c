@@ -118,10 +118,13 @@ if(opcao!=1 && opcao!=2 && opcao!=3 && opcao!=4 && opcao!=5){
             int tamanho_real = strlen(rascunho_tam) + 1;
             prof->nome = (char*)malloc(tamanho_real * sizeof(char));
             strcpy(prof->nome, rascunho_tam);
+             printf("Digite a data de nascimento no formato (DIA / MÊS / ANO), nessa ordem e sem as barras '/': ");
             do{
-            printf("Digite a data de nascimento no formato (DIA / MÊS / ANO): ");
-            scanf("%d",&listaProfessores[id].data.dia);if(listaProfessores[id].data.dia <1 || listaProfessores[id].data.dia >31){printf("Dia fora do padrão, tente novamente");}else{validade=1;}
+            scanf("%d",&listaProfessores[id].data.dia);if(listaProfessores[id].data.dia <1 || listaProfessores[id].data.dia >31){printf("Dia fora do padrão, tente novamente\n");}
+            
             }while(validade==0);
+
+
             
     }
     
