@@ -42,7 +42,15 @@ typedef struct{
   int semestre;
   Professores professor;
 
-}Disciplinas
+}Disciplinas;
+
+#define MAX_PROFESSORES 200
+#define MAX_ALUNOS 200
+
+Alunos listaAlunos[MAX_ALUNOS];
+int qtdAlunosCadastrados = 0;
+Professores listaProfessores[MAX_PROFESSORES];
+int qtdProfessoresCadastrados = 0;
 
 //Funções
 int opcaoValida(int opcao,int u){
@@ -227,15 +235,32 @@ int validarCpf(int p1,int p2, int p3, int dv){
 
     return v;
 }
+int validarSemestre(int s){
+    int v=0;
+
+    if(s>=1 && s<=12){
+        v=1;
+    }
+
+    return v;
+}
+int matriculaDeProfessor(Professores lista[], int qtd, int matricula){
+    for(int i=0;i<qtd;i++){
+        if(lista[i].matricula == matricula){
+            return i;
+        }
+    }
+    return -1;
+}
 
 void Professor(){
         int qtdProfessores;
             printf("\nDigite a quantidade de professores para cadastro: ");
-            scanf("%d",&qtdProfessores); //lista
-            Professores listaProfessores[qtdProfessores];
+            scanf("%d",&qtdProfessores);
+            if (qtdProfessores <= 0) return;
             char armazenamento[1000];
-            for(int l=0;l<qtdProfessores;l++){
-            Professores *ptr_professores = &listaProfessores[l];
+            for(int l=0;l<qtdProfessores && qtdProfessoresCadastrados < MAX_PROFESSORES;l++){
+            Professores *ptr_professores = &listaProfessores[qtdProfessoresCadastrados];
 
             //matrícula do professor
             printf("\nDigite a matrícula do professor(a) nº%d: ",l+1);
@@ -278,6 +303,7 @@ void Professor(){
             };
             
             printf("\n\t\t Professor(a) n°%d cadastrado com sucesso\t\t\n",l+1);
+            qtdProfessoresCadastrados++;
             }
             return;
 }
@@ -286,10 +312,9 @@ void Aluno(){
             printf("\nDigite a quantidade de alunos para cadastro: ");
             scanf("%d",&qtdAlunos); 
             //lista
-            Alunos listaAlunos[qtdAlunos];
             char armazenamento[1000];
-            for(int l=0;l<qtdAlunos;l++){
-            Alunos *ptr_alunos = &listaAlunos[l];
+            for(int l=0;l<qtdAlunos && qtdAlunosCadastrados<MAX_ALUNOS;l++){
+            Alunos *ptr_alunos = &listaAlunos[qtdAlunosCadastrados];
 
             //matrícula do aluno
             printf("\nDigite a matrícula do aluno(a) nº%d: ",l+1);
@@ -332,6 +357,7 @@ void Aluno(){
             };
             
             printf("\n\t\t Aluno(a) n°%d cadastrado com sucesso\t\t\n",l+1);
+            qtdAlunosCadastrados ++;
             }
             return;
 }
@@ -339,26 +365,65 @@ void Disciplina(){
         int qtdDisciplinas;
             printf("\nDigite a quantidade de disciplinas para cadastro: ");
             scanf("%d",&qtdDisciplinas); 
-            //lista
+            //tamanho da lista de disciplinas
             Disciplinas listaDisciplinas[qtdDisciplinas];
             char armazenamento[1000];
             for(int l=0;l<qtdDisciplinas;l++){
             Disciplinas *ptr_disciplinas = &listaDisciplinas[l];
 
-            //código do aluno
-            printf("\nDigite o código do aluno(a) nº%d: ",l+1);
-            scanf("%d",&ptr_disciplinas->matricula);
+            //código da disciplina
+            printf("\nDigite o código da disciplina nº%d: ",l+1);
+            scanf("%d",&ptr_disciplinas->codigo);
             getchar();
 
-            //Nome do aluno
-            printf("\nDigite o nome da disciplina nº%d: ",l+1);
+            //Nome da disciplina
+            printf("\nDigite o nome da disciplina: ");
             fgets(armazenamento,1000,stdin);
             armazenamento[strcspn(armazenamento,"\n")]=0;
             int tamanho = strlen(armazenamento)+1;
             ptr_disciplinas->nome=(char*)malloc(tamanho*sizeof(char)); 
             strcpy(ptr_disciplinas->nome,armazenamento);
+
+            //Semestre da disciplina 
+            printf("\nDigite o semestre da disciplina nº%d, só o número: ",l+1);
+            while(validarSemestre(ptr_disciplinas->semestre)==0){
+            scanf("%d",&ptr_disciplinas->semestre);
+            if(validarSemestre(ptr_disciplinas->semestre)==0){
+                printf("\nSemestre informado incorreto, tente novamente: ");
             }
-}
+        }
+            //Professor da disciplina
+            int valido=2;
+            int matriculaExistente=0;
+            printf("\nDigite '1' se o professor já está cadastrado ou Digite ´2´ se o professor não está cadastrado nº%d: ",l+1);
+            scanf("%d",&valido);
+            while(valido!=1 && valido!=2){
+            printf("\nNúmero digitado inválido, digite 1 ou 2: ");
+            scanf("%d",&valido);
+            }
+            if(valido==2){
+            getchar();
+            printf("\nDigite o nome do Professor dessa disciplina: ");
+            fgets(armazenamento,1000,stdin);
+            armazenamento[strcspn(armazenamento,"\n")]=0;
+            tamanho = strlen(armazenamento)+1;
+            ptr_disciplinas->professor.nome=(char*)malloc(tamanho*sizeof(char));
+            strcpy(ptr_disciplinas->professor.nome,armazenamento);
+        }
+        else{
+            printf("\nDigite a matrícula do professor: ");
+            scanf("%d",&matriculaExistente);
+            int posicao = matriculaDeProfessor(listaProfessores, qtdProfessoresCadastrados, matriculaExistente);
+            while(posicao == -1){
+                printf("\nMatrícula não encontrada. Digite novamente: ");
+                scanf("%d",&matriculaExistente);
+                posicao = matriculaDeProfessor(listaProfessores, qtdProfessoresCadastrados, matriculaExistente);
+            }
+            ptr_disciplinas->professor = listaProfessores[posicao];
+        }
+            }
+    }
+
 
 int main(){
  printf("\t-----Bem vindo ao Sistema Escola-----\n\n");
