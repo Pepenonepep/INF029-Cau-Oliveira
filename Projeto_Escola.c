@@ -259,8 +259,8 @@ void Professor(){
             scanf("%d",&qtdProfessores);
             if (qtdProfessores <= 0) return;
             char armazenamento[1000];
-            for(int l=0;l<qtdProfessores && qtdProfessoresCadastrados < MAX_PROFESSORES;l++){
             Professores *ptr_professores = &listaProfessores[qtdProfessoresCadastrados];
+            for(int l=0;l<qtdProfessores && qtdProfessoresCadastrados < MAX_PROFESSORES;l++){
 
             //matrícula do professor
             printf("\nDigite a matrícula do professor(a) nº%d: ",l+1);
@@ -282,7 +282,7 @@ void Professor(){
             if((validarSexo(ptr_professores->sexo))==0){
                 printf("\nSexo informado errado, digite 'F/f' para Feminino ou 'M/m' para Masculino: ");
             }
-            };
+            }
 
             //Data de Nascimento do professor 
             printf("\nDigite a data de nascimento, no formato (xx/xx/xxxx) com as '/', do professor(a) nº%d: ",l+1);
@@ -291,21 +291,33 @@ void Professor(){
             if((validarData(ptr_professores->data.dia,ptr_professores->data.mes,ptr_professores->data.ano))==0){
                 printf("\nErro na data, digite novamente no formato (xx/xx/xxxx) com as '/': \n");
             }
-            };
+            }
 
             //Cadastro do Cpf do Professor
             printf("\nDigite o cpf, no formato (xxx.xxx.xxx-xx) e com 11 digitos, do professor(a) nº%d: ",l+1);
-            while((validarCpf(ptr_professores->cpf.p1,ptr_professores->cpf.p2,ptr_professores->cpf.p3,ptr_professores->cpf.dv))!=2){
+            do{
             scanf("%d.%d.%d-%d",&ptr_professores->cpf.p1,&ptr_professores->cpf.p2,&ptr_professores->cpf.p3,&ptr_professores->cpf.dv);
             if((validarCpf(ptr_professores->cpf.p1,ptr_professores->cpf.p2,ptr_professores->cpf.p3,ptr_professores->cpf.dv))!=2){
                 printf("\nCpf Inválido, digite novamente no formato (xxx.xxx.xxx-xx) e com 11 digitos: ");
             }
-            };
+            }while((validarCpf(ptr_professores->cpf.p1,ptr_professores->cpf.p2,ptr_professores->cpf.p3,ptr_professores->cpf.dv))!=2);
             
             printf("\n\t\t Professor(a) n°%d cadastrado com sucesso\t\t\n",l+1);
             qtdProfessoresCadastrados++;
             }
-            return;
+            //Listar professor
+            printf("Digite '1' se deseja listar ou '2' se deseja voltar para o menu principal: ");
+            int opcao;
+            scanf("%d",&opcao);
+            if(opcao==1){
+                for(int lista=0;lista<qtdProfessoresCadastrados;lista++){
+                    printf("Professor %d -> %s\n",lista,listaProfessores[lista].nome);
+                    printf("Matrícula desse professor %d -> %s\n",lista,listaProfessores[lista].matricula);
+                }
+            }
+            else if(opcao==2){
+                
+            }
 }
 void Aluno(){
      int qtdAlunos;
@@ -349,12 +361,12 @@ void Aluno(){
 
             //Cadastro do Cpf do aluno
             printf("\nDigite o cpf, no formato (xxx.xxx.xxx-xx) e com 11 digitos, do aluno(a) nº%d: ",l+1);
-            while((validarCpf(ptr_alunos->cpf.p1,ptr_alunos->cpf.p2,ptr_alunos->cpf.p3,ptr_alunos->cpf.dv))!=2){
+            do{
             scanf("%d.%d.%d-%d",&ptr_alunos->cpf.p1,&ptr_alunos->cpf.p2,&ptr_alunos->cpf.p3,&ptr_alunos->cpf.dv);
             if((validarCpf(ptr_alunos->cpf.p1,ptr_alunos->cpf.p2,ptr_alunos->cpf.p3,ptr_alunos->cpf.dv))!=2){
                 printf("\nCpf Inválido, digite novamente no formato (xxx.xxx.xxx-xx) e com 11 digitos: ");
             }
-            };
+            }while((validarCpf(ptr_alunos->cpf.p1,ptr_alunos->cpf.p2,ptr_alunos->cpf.p3,ptr_alunos->cpf.dv))!=2);
             
             printf("\n\t\t Aluno(a) n°%d cadastrado com sucesso\t\t\n",l+1);
             qtdAlunosCadastrados ++;
