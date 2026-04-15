@@ -365,15 +365,48 @@ void Professor()
     scanf("%d", &opcao);
     if (opcao == 1)
     {
-        printf("\t\tProfessores\t\t\n\n");
-        printf("\t|\tMATRÍCULA\t|\tNOME\t|\tSEXO\t|\tDATA DE NASCIMENTO\t|\tCPF\n"); //Ajeitar essa saida da lista, está torto.
+        printf("\t\tPROFESSORES\t\t\n\n");
         for (int lista = 0; lista < qtdProfessoresCadastrados; lista++)
         {
-            printf("\t|\t%d\t|\t%s\t|\t%c\t|\t%d/%d/%d\t|\t%d.%d.%d-%d\n", listaProfessores[lista].matricula, listaProfessores[lista].nome, listaProfessores[lista].sexo, listaProfessores[lista].data.dia, listaProfessores[lista].data.mes, listaProfessores[lista].data.ano, listaProfessores[lista].cpf.p1, listaProfessores[lista].cpf.p2, listaProfessores[lista].cpf.p3, listaProfessores[lista].cpf.dv);
+                 printf("PROFESSOR %d:\n",lista+1);
+                printf("MATRÍCULA- %d\n", listaProfessores[lista].matricula); 
+                printf("  NOME- %s\n", listaProfessores[lista].nome); 
+                printf("  SEXO- %c\n", listaProfessores[lista].sexo);
+                printf("  CPF- %d.%d.%d-%d\n", listaProfessores[lista].cpf.p1,  listaProfessores[lista].cpf.p2,  listaProfessores[lista].cpf.p3, 
+                listaProfessores[lista].cpf.dv);
+                printf("  DATA DE NASCIMENTO- %d/%d/%d\n", listaProfessores[lista].data.dia,listaProfessores[lista].data.mes, 
+                listaProfessores[lista].data.ano);
+                
         }
+         printf("Digite '1' se deseja voltar para o menu principal ou '2' se deseja encerrar o programa: ");
+        scanf("%d",&opcao);
+        if(opcao==2){
+            opcao=5;
+             menuParte2(opcao);
+        }
+         else if (opcao == 1)
+    {
+    printf("\t°°°°°°°°Cadastrar°°°°°°°°\n\t\tDigite [1]\n\n");
+    printf("\t°°°°°°°°Alterar°°°°°°°°\n\t\tDigite [2]\n\n");
+    printf("\t°°°°°°°°Excluir°°°°°°°°\n\t\tDigite [3]\n\n");
+    printf("\t°°°°°°°°Listar°°°°°°°°\n\t\tDigite [4]\n\n");
+    printf("\t°°°°°°°°Sair°°°°°°°°\n\t\tDigite [5]\n\n");
+   scanf("%d",&opcao);
+   menuParte2(opcao);
+
     }
+    }
+    //Voltar pro menu
     else if (opcao == 2)
     {
+    printf("\t°°°°°°°°Cadastrar°°°°°°°°\n\t\tDigite [1]\n\n");
+    printf("\t°°°°°°°°Alterar°°°°°°°°\n\t\tDigite [2]\n\n");
+    printf("\t°°°°°°°°Excluir°°°°°°°°\n\t\tDigite [3]\n\n");
+    printf("\t°°°°°°°°Listar°°°°°°°°\n\t\tDigite [4]\n\n");
+    printf("\t°°°°°°°°Sair°°°°°°°°\n\t\tDigite [5]\n\n");
+   scanf("%d",&opcao);
+   menuParte2(opcao);
+
     }
 }
 void Aluno()
@@ -435,12 +468,62 @@ void Aluno()
 
         printf("\n\t\t Aluno(a) n°%d cadastrado com sucesso\t\t\n", l + 1);
         qtdAlunosCadastrados++;
+
+         // Listar Alunos
+    printf("Digite '1' se deseja listar ou '2' se deseja voltar para o menu principal: ");
+    int opcao;
+    scanf("%d", &opcao);
+    if (opcao == 1)
+    {
+        printf("\t\tALUNOS\t\t\n\n");
+        for (int lista = 0; lista < qtdAlunosCadastrados; lista++)
+        {
+             printf("ALUNO %d:\n",lista+1);
+            printf("MATRÍCULA\t - %d\n", listaAlunos[lista].matricula); 
+                printf("  NOME\t    - %s\n", listaAlunos[lista].nome); 
+                printf("  SEXO\t    - %c\n", listaAlunos[lista].sexo);
+                printf("  CPF\t     - %d.%d.%d-%d\n", listaAlunos[lista].cpf.p1,  listaAlunos[lista].cpf.p2,  listaAlunos[lista].cpf.p3, 
+                listaAlunos[lista].cpf.dv);
+                printf("  DATA DE NASCIMENTO\t - %d/%d/%d\n", listaAlunos[lista].data.dia,listaAlunos[lista].data.mes, 
+                listaAlunos[lista].data.ano);
+        }
+        printf("Digite '1' se deseja voltar para o menu principal ou '2' se deseja encerrar o programa: ");
+        scanf("%d",&opcao);
+        if(opcao==2){
+            opcao=5;
+             menuParte2(opcao);
+        }
+         else if (opcao == 1)
+    {
+    printf("\t°°°°°°°°Cadastrar°°°°°°°°\n\t\tDigite [1]\n\n");
+    printf("\t°°°°°°°°Alterar°°°°°°°°\n\t\tDigite [2]\n\n");
+    printf("\t°°°°°°°°Excluir°°°°°°°°\n\t\tDigite [3]\n\n");
+    printf("\t°°°°°°°°Listar°°°°°°°°\n\t\tDigite [4]\n\n");
+    printf("\t°°°°°°°°Sair°°°°°°°°\n\t\tDigite [5]\n\n");
+   scanf("%d",&opcao);
+   menuParte2(opcao);
+
+    }
+    }
+    //Voltar pro menu
+    else if (opcao == 2)
+    {
+    printf("\t°°°°°°°°Cadastrar°°°°°°°°\n\t\tDigite [1]\n\n");
+    printf("\t°°°°°°°°Alterar°°°°°°°°\n\t\tDigite [2]\n\n");
+    printf("\t°°°°°°°°Excluir°°°°°°°°\n\t\tDigite [3]\n\n");
+    printf("\t°°°°°°°°Listar°°°°°°°°\n\t\tDigite [4]\n\n");
+    printf("\t°°°°°°°°Sair°°°°°°°°\n\t\tDigite [5]\n\n");
+   scanf("%d",&opcao);
+   menuParte2(opcao);
+
+    }
     }
     return;
 }
 void Disciplina()
 {
     int qtdDisciplinas;
+    int opcao;
     printf("\nDigite a quantidade de disciplinas para cadastro: ");
     scanf("%d", &qtdDisciplinas);
     // tamanho da lista de disciplinas
@@ -506,8 +589,64 @@ void Disciplina()
             }
             ptr_disciplinas->professor = listaProfessores[posicao];
         }
+
+        //Inserir ou Excluir alunos na disciplina
+        printf("Digite 1 se você quer inserir um aluno a disciplina, ou 2 se quer excluir: " );
+        scanf("%d",&opcao);
+
+        if(opcao==1){
+            
+        }
+
+           // Listar disciplinas
+    printf("Digite '1' se deseja listar ou '2' se deseja voltar para o menu principal: ");
+    scanf("%d", &opcao);
+    if (opcao == 1)
+    {
+        printf("\t\tDisciplinas\t\t\n\n");
+        for (int lista = 0; lista < qtdAlunosCadastrados; lista++)
+        {
+            printf("DISCIPLINA %d:\n",lista+1);
+             printf("CÓDIGO\t - %d\n", listaDisciplinas[lista].codigo); 
+                printf("  NOME\t    - %s\n", listaDisciplinas[lista].nome); 
+                printf("  SEMESTRE\t    - %c\n", listaDisciplinas[lista].semestre);
+                printf("  PROFESSOR DA DISCIPLINA - \t    - %d\n", listaDisciplinas[lista].professor.nome);
+               
+        }
+        printf("Digite '1' se deseja voltar para o menu principal ou '2' se deseja encerrar o programa: ");
+        scanf("%d",&opcao);
+        if(opcao==2){
+            opcao=5;
+             menuParte2(opcao);
+        }
+         else if (opcao == 1)
+    {
+    printf("\t°°°°°°°°Cadastrar°°°°°°°°\n\t\tDigite [1]\n\n");
+    printf("\t°°°°°°°°Alterar°°°°°°°°\n\t\tDigite [2]\n\n");
+    printf("\t°°°°°°°°Excluir°°°°°°°°\n\t\tDigite [3]\n\n");
+    printf("\t°°°°°°°°Listar°°°°°°°°\n\t\tDigite [4]\n\n");
+    printf("\t°°°°°°°°Sair°°°°°°°°\n\t\tDigite [5]\n\n");
+   scanf("%d",&opcao);
+   menuParte2(opcao);
+
     }
-}
+    }
+    //Voltar pro menu
+    else if (opcao == 2)
+    {
+    printf("\t°°°°°°°°Cadastrar°°°°°°°°\n\t\tDigite [1]\n\n");
+    printf("\t°°°°°°°°Alterar°°°°°°°°\n\t\tDigite [2]\n\n");
+    printf("\t°°°°°°°°Excluir°°°°°°°°\n\t\tDigite [3]\n\n");
+    printf("\t°°°°°°°°Listar°°°°°°°°\n\t\tDigite [4]\n\n");
+    printf("\t°°°°°°°°Sair°°°°°°°°\n\t\tDigite [5]\n\n");
+   scanf("%d",&opcao);
+   menuParte2(opcao);
+
+    }
+    }
+    }
+
+
 
 int main()
 {
@@ -527,19 +666,39 @@ int main()
     opcao = menuParte2(opcao);
 
     // Cadastro
-    switch (opcao)
+    while (opcao != 5)
     {
-    case 1:
-        Professor();
-        break;
-    case 2:
-        Aluno();
-        break;
-    case 3:
-        Disciplina();
-        break;
-    }
+        switch (opcao)
+        {
+        case 1:
+            Professor();
+            break;
+        case 2:
+            Aluno();
+            break;
+        case 3:
+            Disciplina();
+            break;
+        }
 
+        printf("\t-----Bem vindo ao Sistema Escola-----\n\n");
+        printf("\t°°°°°°°°Cadastrar°°°°°°°°\n\t\tDigite [1]\n\n");
+        printf("\t°°°°°°°°Alterar°°°°°°°°\n\t\tDigite [2]\n\n");
+        printf("\t°°°°°°°°Excluir°°°°°°°°\n\t\tDigite [3]\n\n");
+        printf("\t°°°°°°°°Listar°°°°°°°°\n\t\tDigite [4]\n\n");
+        printf("\t°°°°°°°°Sair°°°°°°°°\n\t\tDigite [5]\n\n");
+        scanf("%d", &opcao);
+
+        if (opcao != 1 && opcao != 2 && opcao != 3 && opcao != 4 && opcao != 5)
+        {
+            opcao = opcaoValida(opcao, ultimoCaso);
+        }
+
+        if (opcao != 5)
+        {
+            opcao = menuParte2(opcao);
+        }
+    }
     printf("\t\tObrigado pelo cadastro !\t\t");
     return 0;
 }
