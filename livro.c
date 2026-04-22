@@ -1,6 +1,170 @@
+#include <stdio.h>
+
+
+typedef struct{
+    int id; //chave primária / identificador
+    int ano;
+    int edicao;
+}Livro;
+
+#define TAM_LISTA_LIVRO 3
+
+int menu();
+int cadastrarLivro(int qtdLivros, Livro meusLivros[], int codigo);
+void listarLivros(int qtdLivros, Livro listaLivros[]);
+void atualizarLivro(int qtdLivros, Livro listaLivros[]);
+int excluirLivro(int qtdLivros, Livro listaLivros[], int idEscolhido);
+
 int main(){
-    while(sair==0){
+    int codigo = 1;
+	printf("Olá mundo\n");
+
+    Livro listaLivros[TAM_LISTA_LIVRO];
+    
+    int sair = 0;
+    int qtdLivros = 0;
+    int opcao;
+    while (sair == 0){
+        opcao = menu();
         
 
+        switch (opcao){
+            case 0:{
+                sair = 1;
+                break;
+            }
+            case 1:{
+                int retorno = cadastrarLivro(qtdLivros, listaLivros, codigo);
+                if (retorno == 1){
+                    codigo++;
+                    qtdLivros ++;
+                }    
+                break;
+            }
+            case 2:{
+                listarLivros(qtdLivros, listaLivros);
+                break;
+            }
+            case 3:{
+                
+                atualizarLivro(qtdLivros, listaLivros);
+
+                break;
+            }
+            case 4:{
+                //excluir livro
+                if (qtdLivros == 0){
+                    printf("Biblioteca vazia!\n");
+                }else{
+                    printf("Digite a ID do livro: ");
+                    int idEscolhido;
+                    scanf("%d", &idEscolhido);
+                    qtdLivros = excluirLivro(qtdLivros, listaLivros, idEscolhido);
+                }
+                break;
+            }
+        }
+
     }
+
+    return 0;
+
+}
+
+int menu(){
+    int opcao;
+    printf("Escolha a opcão: \n");
+    printf("0 - Sair \n");
+    printf("1 - Cadastrar Livro \n");
+    printf("2 - Listar Livros \n");
+    printf("3 - Atualizar Livro \n");
+    printf("4 - Excluir Livro \n");
+    scanf("%d", &opcao);
+    return opcao;
+
+}
+
+int cadastrarLivro(int qtdLivros, Livro meusLivros[], int codigo){
+    //cadastrar livro
+    if (qtdLivros == TAM_LISTA_LIVRO){
+        printf("Biblioteca cheia!\n");
+        return 0;
+    }else{
+        meusLivros[qtdLivros].id = codigo;
+        int ano; 
+        printf("Digite o ano: ");
+        scanf("%d", &ano);
+        meusLivros[qtdLivros].ano = ano;
+        printf("Digite a edicao: ");
+        scanf("%d", &meusLivros[qtdLivros].edicao);
+        return 1;
+        
+    }
+
+
+}
+
+void listarLivros(int qtdLivros, Livro listaLivros[]){
+
+    //listar livro
+    printf("### Listando os livros ###\n");
+    for (int i = 0; i < qtdLivros; i++){
+        
+        printf("Id: %d - Ano: %d - Edição: %d\n", listaLivros[i].id, listaLivros[i].ano, listaLivros[i].edicao);
+    }
+}
+
+void atualizarLivro(int qtdLivros, Livro listaLivros[]){
+    //atualizar livro
+    printf("### Listando os livros ###\n");
+    for (int i = 0; i < qtdLivros; i++){
+        
+        printf("Código: %d - Ano: %d - Edição: %d\n", listaLivros[i].id, listaLivros[i].ano, listaLivros[i].edicao);
+    }
+    printf("Digite o código do livro que você deseja atualizar: ");
+    int id, novoAno, novaEdicao;
+    scanf("%d", &id);
+
+    
+    int achou = 0;
+    for (int i = 0; i < qtdLivros; i++){
+        if (listaLivros[i].id == id){
+            achou = 1;
+            printf("Digite o novo Ano: ");
+            scanf("%d", &novoAno);
+
+            printf("Digite a nova Edição: ");
+            scanf("%d", &novaEdicao);
+            listaLivros[i].ano = novoAno;
+            listaLivros[i].edicao = novaEdicao;
+            break;
+        }
+        
+    }
+    if (achou == 0){
+        printf("Livro não encontrado!\n");
+    }
+}
+
+int excluirLivro(int qtdLivros, Livro listaLivros[], int idEscolhido){
+    int indice = -1;
+
+    for (int i = 0; i < qtdLivros; i++){
+        if (listaLivros[i].id == idEscolhido){
+            indice = i;
+            break;
+        }
+    }
+
+    if (indice == -1){
+        printf("Livro não encontrado!\n");
+        return qtdLivros;
+    }
+
+    for (int i = indice; i < qtdLivros - 1; i++){
+        listaLivros[i] = listaLivros[i + 1];
+    }
+
+    printf("Livro excluido com sucesso!\n");
+    return qtdLivros - 1;
 }
